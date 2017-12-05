@@ -1,0 +1,88 @@
+//Dota Heroes File
+"DOTAAbilities"
+{
+	"Version"       "1"
+	//=================================================================================================================
+	// Naruto: Rasengan
+	//=================================================================================================================
+	"custom_rasengan"
+	{
+  	// General
+  	//-------------------------------------------------------------------------------------------------------------
+  	"BaseClass"           "ability_datadriven"
+  	"AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+  	"AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL" 
+	"AbilityTextureName"      "skywrath_mage_concussive_shot"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"       "0.0 0.0 0.0 0.0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"        "15.0 10.0 7.0 5.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"        "20 10 0 0"
+
+    // Data Driven Ability
+    //-------------------------------------------------------------------------------------------------------------
+
+    "OnSpellStart"
+    {    
+      "ApplyModifier"
+      {
+        "ModifierName" "rasengan"
+        "Target"    "CASTER" 
+      }  
+
+    }    
+
+    // Modifiers
+    //-------------------------------------------------------------------------------------------------------------
+
+    "Modifiers"
+    {
+      "rasengan"
+      {
+      "Passive"  "1"
+      "Duration" "6"
+      "OnAttackLanded"
+        {
+          "Knockback"
+          {
+          "Target" "TARGET"
+          "Center" "CASTER"
+          "Duration" "1"
+          "Distance" "600"
+          "Height" "0"
+          }
+
+          "Damage"
+          {
+          "Target" "TARGET"
+          "Type" "DAMAGE_TYPE_MAGICAL"
+          "Damage" "50 100 150 200"
+          }
+
+          "RemoveModifier"
+          {
+            "ModifierName" "rasengan"
+            "Target" "CASTER"  
+          }
+        }
+
+      "OnDeath"
+        {
+          "RemoveModifier"
+          {
+            "ModifierName" "rasengan"
+            "Target" "CASTER"  
+          }
+        }
+      }  
+    }
+
+  }
+}
