@@ -7,7 +7,7 @@
 	    // General  
 	    // ----------------------------------------------------------------------------------------
 	    "BaseClass"              "ability_datadriven"
-	    "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	    "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
 	    "AbilityTextureName"     "pelmeni"
 	    "AbilityUnitTargetTeam"  "DOTA_UNIT_TARGET_TEAM_ENEMY"
 	    "AbilityUnitTargetType"  "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
@@ -23,6 +23,7 @@
 	    //----------------------------------------------------------------------------------------
 	    "AbilityManaCost"         "80"
 	    "AbilityCooldown"         "35 30 25 20"
+	    "AbilityChannelTime"          "2.5"
 	    "AbilitySpecial"
 	 	{
 		    "01"
@@ -40,16 +41,38 @@
 		        "var_type"  "FIELD_FLOAT"
 		        "regen" "8 13 19 27"
 		    }
+		    "04"
+		    { 
+		        "var_type"  "FIELD_FLOAT"
+		        "skorost" "40 60 80 100"
+		    }
 	 	}
 	    "OnSpellStart"
 	    {
-	    	"ApplyModifier"
+	    	"RemoveModifier"
+        {
+            "Target" "CASTER"
+            "ModifierName" "silapelmenei"                               
+        }
+	    }
+	    "OnChannelFinish"
+    {
+        "ApplyModifier"
 	    	{
 	    		"ModifierName"	"silapelmenei"
 	    		"Target" 		"CASTER"
 	    		"Duration"		"%duration"
 	    	}
-	    }
+    }
+    "OnChannelInterrupted"
+    {
+        "RemoveModifier"
+        {
+            "Target" "CASTER"
+            "ModifierName" "silapelmenei"
+        }
+    }
+
 	    "Modifiers"
 	    {
 	    	"silapelmenei"
@@ -63,7 +86,8 @@
 	    		"Properties"
 	    		{
 	    			"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%sila_ot_pelmenei"	
-	    			"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"    "%regen" 					
+	    			"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"    "%regen" 	
+	    			"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%skorost"			
 	    		}
 	    	}
 	    }
