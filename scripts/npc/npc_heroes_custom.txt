@@ -21,7 +21,7 @@
 // Abilities
 //-------------------------------------------------------------------------------------------------------------
 "AbilityLayout" "5"
-"Ability1" "custom_rasengan" // Ability 3
+"Ability1" "pelmeni" // Ability 3
 "Ability5" "attribute_bonus" // Ability 6 - Bonuses.
 }
 }

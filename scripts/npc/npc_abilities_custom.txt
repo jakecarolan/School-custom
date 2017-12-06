@@ -2,87 +2,70 @@
 "DOTAAbilities"
 {
 	"Version"       "1"
-	//=================================================================================================================
-	// Naruto: Rasengan
-	//=================================================================================================================
-	"custom_rasengan"
+	"pelmeni"
 	{
-  	// General
-  	//-------------------------------------------------------------------------------------------------------------
-  	"BaseClass"           "ability_datadriven"
-  	"AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-  	"AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL" 
-	"AbilityTextureName"      "skywrath_mage_concussive_shot"
-
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastPoint"       "0.0 0.0 0.0 0.0"
-
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"        "15.0 10.0 7.0 5.0"
-
-    // Cost
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityManaCost"        "20 10 0 0"
-
-    // Data Driven Ability
-    //-------------------------------------------------------------------------------------------------------------
-
-    "OnSpellStart"
-    {    
-      "ApplyModifier"
-      {
-        "ModifierName" "rasengan"
-        "Target"    "CASTER" 
-      }  
-
-    }    
-
-    // Modifiers
-    //-------------------------------------------------------------------------------------------------------------
-
-    "Modifiers"
-    {
-      "rasengan"
-      {
-      "Passive"  "1"
-      "Duration" "6"
-      "OnAttackLanded"
-        {
-          "Knockback"
-          {
-          "Target" "TARGET"
-          "Center" "CASTER"
-          "Duration" "1"
-          "Distance" "600"
-          "Height" "0"
-          }
-
-          "Damage"
-          {
-          "Target" "TARGET"
-          "Type" "DAMAGE_TYPE_MAGICAL"
-          "Damage" "50 100 150 200"
-          }
-
-          "RemoveModifier"
-          {
-            "ModifierName" "rasengan"
-            "Target" "CASTER"  
-          }
-        }
-
-      "OnDeath"
-        {
-          "RemoveModifier"
-          {
-            "ModifierName" "rasengan"
-            "Target" "CASTER"  
-          }
-        }
-      }  
-    }
-
-  }
+	    // General  
+	    // ----------------------------------------------------------------------------------------
+	    "BaseClass"              "ability_datadriven"
+	    "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+	    "AbilityTextureName"     "pelmeni"
+	    "AbilityUnitTargetTeam"  "DOTA_UNIT_TARGET_TEAM_ENEMY"
+	    "AbilityUnitTargetType"  "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+	    "AbilityProcsMagicStick"	"True"
+	    "AbilityUnitTargetFlags" "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+	    "AbilityType"            "DOTA_ABILITY_TYPE_BASIC"
+	    "MaxLevel"               "4"
+	    "AbilityCastPoint"       "0.5"
+	    "AbilityCastAnimation"   "ACT_DOTA_ATTACK"
+	    "AnimationPlaybackRate"  "1"
+	    "AnimationIgnoresModelScale" "1"
+	    // Stats
+	    //----------------------------------------------------------------------------------------
+	    "AbilityManaCost"         "80"
+	    "AbilityCooldown"         "35 30 25 20"
+	    "AbilitySpecial"
+	 	{
+		    "01"
+		    { 
+		        "var_type"  "FIELD_INTEGER"
+		        "sila_ot_pelmenei" "15 20 25 30"
+		    }
+		    "02"
+		    { 
+		        "var_type"  "FIELD_FLOAT"
+		        "duration" "15"
+		    }
+		    "03"
+		    { 
+		        "var_type"  "FIELD_FLOAT"
+		        "regen" "8 13 19 27"
+		    }
+	 	}
+	    "OnSpellStart"
+	    {
+	    	"ApplyModifier"
+	    	{
+	    		"ModifierName"	"silapelmenei"
+	    		"Target" 		"CASTER"
+	    		"Duration"		"%duration"
+	    	}
+	    }
+	    "Modifiers"
+	    {
+	    	"silapelmenei"
+	    	{
+	    		"Passive"			"0"
+	    		"IsHidden"			"0"
+	    		"IsBuff"			"1"
+	    		"IsDebuff"			"0"
+	    		"Duration"			"%duration"
+	    
+	    		"Properties"
+	    		{
+	    			"MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"	"%sila_ot_pelmenei"	
+	    			"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"    "%regen" 					
+	    		}
+	    	}
+	    }
+	}
 }
